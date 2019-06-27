@@ -9,8 +9,8 @@ import {
   TouchableOpacity
 } from "react-native";
 import { Fab, Icon } from "native-base";
-import distribution from "./data/distribution.json";
-import { sentences } from "markovian-nlp";
+import markovModel from "./data/markov_model.json";
+const markov = require("hx-markov-chain");
 
 export default () => {
   const postTweet = useCallback((tweet: string) => {
@@ -18,10 +18,13 @@ export default () => {
   }, []);
   const [messages, setMessages] = useState<string[]>([]);
   const generateMessages = useCallback(() => {
-    const gen = sentences({
-      distribution,
-      count: 10
-    }).map(doc => doc.replace(/ /g, ""));
+    const gen = [
+      markov.run(markovModel).join(""),
+      markov.run(markovModel).join(""),
+      markov.run(markovModel).join(""),
+      markov.run(markovModel).join(""),
+      markov.run(markovModel).join(""),
+    ];
     setMessages(gen);
   }, [setMessages]);
 

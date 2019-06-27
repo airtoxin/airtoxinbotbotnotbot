@@ -2,6 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const TinySegmenter = require("tiny-segmenter");
 const { ngramsDistribution } = require("markovian-nlp");
+const markov = require("hx-markov-chain");
 
 const segmenter = new TinySegmenter();
 
@@ -14,7 +15,6 @@ window = {
 };
 
 for (const filePath of tweetJsFileAbsolutePaths) {
-  // load js file
   require(filePath);
 }
 
@@ -28,12 +28,21 @@ const tweetTexts = Object.values(window.YTD.tweet).flatMap(tweets => {
     .map(tweet => tweet.full_text);
 });
 
-const documents = tweetTexts.map(tweetText => segmenter.segment(tweetText).join(" "));
+const segmentsList = tweetTexts.map(tweetText => segmenter.segment(tweetText));
 
-const distribution = ngramsDistribution(documents);
+const model = markov.create();
+
+for (const segments of segmentsList) {
+  try {
+    markov.update(model, segments);
+  } catch (e) {
+    console.error(e);
+    console.error(segments);
+  }
+}
 
 fs.writeFileSync(
-  path.join(process.cwd(), "data/distribution.json"),
-  JSON.stringify(distribution),
+  path.join(process.cwd(), "data/markov_model.json"),
+  JSON.stringify(model),
   "utf8"
 );
