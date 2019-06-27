@@ -5,6 +5,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "fmt": "prettier --write '**/*.{js,jsx,json,ts,tsx,md,html,css}' --ignore-path .gitignore",
     "extract-tweet-text": "node scripts/extract-tweet-text.js"
   },
   "dependencies": {
@@ -18,6 +19,7 @@
     "@types/react": "^16.8.19",
     "@types/react-native": "^0.57.60",
     "babel-preset-expo": "^5.1.1",
+    "prettier": "1.18.2",
     "typescript": "^3.4.5"
   },
   "private": true
