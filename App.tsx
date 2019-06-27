@@ -8,6 +8,7 @@ import {
   Linking,
   TouchableOpacity
 } from "react-native";
+import { Fab, Icon } from "native-base";
 import distribution from "./data/distribution.json";
 import { sentences } from "markovian-nlp";
 
@@ -37,7 +38,12 @@ export default () => {
         )}
         keyExtractor={item => item}
       />
-      <Button onPress={generateMessages} title="再生成"/>
+      <Fab
+        position="bottomRight"
+        onPress={generateMessages}
+      >
+        <Icon name="refresh"/>
+      </Fab>
     </View>
   );
 };
