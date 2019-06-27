@@ -1,5 +1,9 @@
 const path = require("path");
 const fs = require("fs");
+const TinySegmenter = require("tiny-segmenter");
+const { ngramsDistribution } = require("markovian-nlp");
+
+const segmenter = new TinySegmenter();
 
 const tweetJsFileAbsolutePaths = process.argv.slice(2);
 
@@ -24,8 +28,12 @@ const tweetTexts = Object.values(window.YTD.tweet).flatMap(tweets => {
     .map(tweet => tweet.full_text);
 });
 
+const documents = tweetTexts.map(tweetText => segmenter.segment(tweetText).join(" "));
+
+const distribution = ngramsDistribution(documents);
+
 fs.writeFileSync(
-  path.join(process.cwd(), "data/tweet_texts.json"),
-  JSON.stringify(tweetTexts),
+  path.join(process.cwd(), "data/distribution.json"),
+  JSON.stringify(distribution),
   "utf8"
 );

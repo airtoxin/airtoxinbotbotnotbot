@@ -19,7 +19,9 @@
     "@types/react": "16.8.22",
     "@types/react-native": "0.57.64",
     "babel-preset-expo": "^5.1.1",
+    "markovian-nlp": "4.1.6",
     "prettier": "1.18.2",
+    "tiny-segmenter": "0.2.0",
     "typescript": "3.5.2"
   },
   "private": true

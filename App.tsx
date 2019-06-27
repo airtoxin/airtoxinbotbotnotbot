@@ -1,37 +1,57 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Button,
   FlatList,
   StyleSheet,
   Text,
   View,
-  Linking
+  Linking,
+  TouchableOpacity
 } from "react-native";
-import tweets from "./data/tweet_texts.json";
+import distribution from "./data/distribution.json";
+import { sentences } from "markovian-nlp";
 
 export default () => {
-  const postTweet = (tweet: string) => {
+  const postTweet = useCallback((tweet: string) => {
     Linking.openURL(`twitter://post?message=${tweet}`).catch(console.log);
-  };
+  }, []);
+  const [messages, setMessages] = useState<string[]>([]);
+  const generateMessages = useCallback(() => {
+    const gen = sentences({
+      distribution,
+      count: 10
+    }).map(doc => doc.replace(/ /g, ""));
+    setMessages(gen);
+  }, [setMessages]);
+
+  useEffect(generateMessages, []);
 
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
       <FlatList
-        data={tweets as string[]}
-        renderItem={tweet => (
-          <Button onPress={() => postTweet(tweet.item)} title={tweet.item} />
+        data={messages}
+        renderItem={message => (
+          <TouchableOpacity onPress={() => postTweet(message.item)}>
+            <Text style={styles.item}>{message.item}</Text>
+          </TouchableOpacity>
         )}
+        keyExtractor={item => item}
       />
+      <Button onPress={generateMessages} title="再生成"/>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 20,
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center"
+  },
+  item: {
+    fontSize: 24,
+    margin: 8
   }
 });

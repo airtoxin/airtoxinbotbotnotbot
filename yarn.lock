@@ -1472,6 +1472,11 @@ chalk@^2.0.0, chalk@^2.4.1:
     escape-string-regexp "^1.0.5"
     supports-color "^5.3.0"
 
+chance@^1.0.18:
+  version "1.0.18"
+  resolved "https://registry.yarnpkg.com/chance/-/chance-1.0.18.tgz#79788fe6fca4c338bf404321c347eecc80f969ee"
+  integrity sha512-g9YLQVHVZS/3F+zIicfB58vjcxopvYQRp7xHzvyDFDhXH1aRZI/JhwSAO0X5qYiQluoGnaNAU6wByD2KTxJN1A==
+
 change-emitter@^0.1.2:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/change-emitter/-/change-emitter-0.1.6.tgz#e8b2fe3d7f1ab7d69a32199aff91ea6931409515"
@@ -1592,6 +1597,13 @@ compression@^1.7.1:
     on-headers "~1.0.2"
     safe-buffer "5.1.2"
     vary "~1.1.2"
+
+compromise@^11.12.4:
+  version "11.13.2"
+  resolved "https://registry.yarnpkg.com/compromise/-/compromise-11.13.2.tgz#19cf7d9814ca005548b7e470cf9025c9bb7b5524"
+  integrity sha512-E1zhtbVNapANcLVCktjm+GxZh+J3pE4epUXb6AgKRr1hYdM8AfUuV+sAS6M7Anuikq9q9HTMVttm1ignDLHt6A==
+  dependencies:
+    efrt-unpack "2.0.3"
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -1830,6 +1842,11 @@ ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
+
+efrt-unpack@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/efrt-unpack/-/efrt-unpack-2.0.3.tgz#6ada57793e3dda16d182f6a371fbe3d135af9dc2"
+  integrity sha512-ocvMy2FUrwdO8mfbe8abpb9hEC8GqifH5/VONgb9aPNOTakRcJVTaLMBG6TBQ64Y7qEVABIkVA9jacdKJErE+g==
 
 electron-to-chromium@^1.3.164:
   version "1.3.175"
@@ -3368,6 +3385,15 @@ markerwithlabel@^2.0.1:
   resolved "https://registry.yarnpkg.com/markerwithlabel/-/markerwithlabel-2.0.2.tgz#fa6aee4abb0ee553e24e2b708226858f58b8729e"
   integrity sha512-C/cbm1A0h/u54gwHk5ZJNdUU3V3+1BbCpRPMsMyFA7vF4yL+aB4rWpxACz29TpQ+cTg6/iQroExh0PMSRGtQFg==
 
+markovian-nlp@4.1.6:
+  version "4.1.6"
+  resolved "https://registry.yarnpkg.com/markovian-nlp/-/markovian-nlp-4.1.6.tgz#fbc4f40199f0850e896e386ba3138b48697bf95a"
+  integrity sha512-ME9m0OufKH4KRRRY3hTRf8zsC0XGvIOpTVWMsQpom0qZg31KVLygkpe98zd/R9036ym43GIsGyi34cWrr5mWrA==
+  dependencies:
+    chance "^1.0.18"
+    compromise "^11.12.4"
+    ramda "^0.26.1"
+
 math-random@^1.0.1:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/math-random/-/math-random-1.0.4.tgz#5dd6943c938548267016d4e34f057583080c514c"
@@ -4379,6 +4405,11 @@ querystringify@^2.1.1:
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.1.1.tgz#60e5a5fd64a7f8bfa4d2ab2ed6fdf4c85bad154e"
   integrity sha512-w7fLxIRCRT7U8Qu53jQnJyPkYZIaR4n5151KMfcJlO/A9397Wxb1amJvROTK6TOnp7PfoAmg/qXiNHI+08jRfA==
 
+ramda@^0.26.1:
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.26.1.tgz#8d41351eb8111c55353617fc3bbffad8e4d35d06"
+  integrity sha512-hLWjpy7EnsDBb0p+Z3B7rPi3GDeRG5ZtiI33kJhTt+ORCd38AbAIjB/9zRIUoeTbE/AVX5ZkU7m6bznsvrf8eQ==
+
 randomatic@^3.0.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/randomatic/-/randomatic-3.1.1.tgz#b776efc59375984e36c537b2f51a1f0aff0da1ed"
@@ -5265,6 +5296,11 @@ tiny-queue@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/tiny-queue/-/tiny-queue-0.2.1.tgz#25a67f2c6e253b2ca941977b5ef7442ef97a6046"
   integrity sha1-JaZ/LG4lOyypQZd7XvdELvl6YEY=
+
+tiny-segmenter@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/tiny-segmenter/-/tiny-segmenter-0.2.0.tgz#4f91115efaa90d1f98b481623b0dcc830a9e1a69"
+  integrity sha1-T5ERXvqpDR+YtIFiOw3MgwqeGmk=
 
 tmp@^0.0.33:
   version "0.0.33"
