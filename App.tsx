@@ -13,8 +13,6 @@ import { Fab, Icon } from "native-base";
 // import markovModel from "./data/markov_model.json";
 const markov = require("hx-markov-chain");
 
-console.log(Asset.fromModule(require("./data/markov_model.json")));
-
 export default () => {
   const postTweet = useCallback((tweet: string) => {
     Linking.openURL(`twitter://post?message=${tweet}`).catch(console.log);
@@ -32,6 +30,10 @@ export default () => {
   }, [setMessages]);
 
   useEffect(generateMessages, []);
+
+  useEffect(() => {
+    console.log(Asset.fromModule(require("./data/markov_model.json")));
+  }, []);
 
   return (
     <View style={styles.container}>
