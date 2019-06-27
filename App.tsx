@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { AppLoading, Asset } from "expo";
 import {
   Button,
   FlatList,
@@ -9,8 +10,10 @@ import {
   TouchableOpacity
 } from "react-native";
 import { Fab, Icon } from "native-base";
-import markovModel from "./data/markov_model.json";
+// import markovModel from "./data/markov_model.json";
 const markov = require("hx-markov-chain");
+
+console.log(Asset.fromModule(require("./data/markov_model.json")));
 
 export default () => {
   const postTweet = useCallback((tweet: string) => {
@@ -19,11 +22,11 @@ export default () => {
   const [messages, setMessages] = useState<string[]>([]);
   const generateMessages = useCallback(() => {
     const gen = [
-      markov.run(markovModel).join(""),
-      markov.run(markovModel).join(""),
-      markov.run(markovModel).join(""),
-      markov.run(markovModel).join(""),
-      markov.run(markovModel).join(""),
+      // markov.run(markovModel).join(""),
+      // markov.run(markovModel).join(""),
+      // markov.run(markovModel).join(""),
+      // markov.run(markovModel).join(""),
+      // markov.run(markovModel).join(""),
     ];
     setMessages(gen);
   }, [setMessages]);
