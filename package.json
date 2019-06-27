@@ -5,7 +5,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "extract-tweet-text": "node scripts/extract-tweet-text.js"
   },
   "dependencies": {
     "expo": "^33.0.0",
