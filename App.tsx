@@ -1,5 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Linking, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  Clipboard,
+  Linking,
+  StyleSheet,
+  Text,
+  View
+} from "react-native";
 import {
   Body,
   Container,
@@ -53,7 +60,15 @@ export default () => {
         <Content>
           <List>
             {messages.map(message => (
-              <ListItem key={message} onPress={() => postTweet(message)}>
+              <ListItem
+                key={message}
+                onPress={() => postTweet(message)}
+                onLongPress={() =>
+                  Alert.alert("内容をコピーしました", "", [
+                    { text: "OK", onPress: () => Clipboard.setString(message) }
+                  ])
+                }
+              >
                 <Text style={styles.item}>{message}</Text>
               </ListItem>
             ))}
