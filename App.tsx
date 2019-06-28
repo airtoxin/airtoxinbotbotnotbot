@@ -22,6 +22,7 @@ import {
 import { useMarkovModel } from "./useMarkovModel";
 import markov from "hx-markov-chain";
 import { SettingDrawer } from "./components/SettingDrawer";
+import { Layout } from "./components/Layout";
 
 export default () => {
   const postTweet = useCallback((tweet: string) => {
@@ -52,52 +53,43 @@ export default () => {
     generateMessages(model);
   }, [isReady]);
 
-  if (!isReady) {
-    return (
-      <View style={styles.container}>
-        <Spinner />
-      </View>
-    );
-  } else {
-    return (
-      <Container>
-        <SettingDrawer>
-          <Header>
-            <Body>
-              <Title>airtoxinbotbotnotbot</Title>
-            </Body>
-          </Header>
-          <Content
-            refreshControl={
-              <RefreshControl
-                refreshing={refreshing}
-                onRefresh={() => generateMessages(model)}
-              />
+  const content = (
+    <Content
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={() => generateMessages(model)}
+        />
+      }
+    >
+      <List>
+        {messages.map(message => (
+          <ListItem
+            key={message}
+            onPress={() => postTweet(message)}
+            onLongPress={() =>
+              Alert.alert("内容をコピーしました", "", [
+                {
+                  text: "OK",
+                  onPress: () => Clipboard.setString(message)
+                }
+              ])
             }
           >
-            <List>
-              {messages.map(message => (
-                <ListItem
-                  key={message}
-                  onPress={() => postTweet(message)}
-                  onLongPress={() =>
-                    Alert.alert("内容をコピーしました", "", [
-                      {
-                        text: "OK",
-                        onPress: () => Clipboard.setString(message)
-                      }
-                    ])
-                  }
-                >
-                  <Text style={styles.item}>{message}</Text>
-                </ListItem>
-              ))}
-            </List>
-          </Content>
-        </SettingDrawer>
-      </Container>
-    );
-  }
+            <Text style={styles.item}>{message}</Text>
+          </ListItem>
+        ))}
+      </List>
+    </Content>
+  );
+
+  const loading = (
+    <View style={styles.container}>
+      <Spinner color="black" />
+    </View>
+  );
+
+  return <Layout>{isReady ? content : loading}</Layout>;
 };
 
 const styles = StyleSheet.create({
