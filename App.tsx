@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   Alert,
   Clipboard,
@@ -12,13 +12,16 @@ import {
   Body,
   Container,
   Content,
+  Drawer,
   Header,
   List,
   ListItem,
+  Spinner,
   Title
 } from "native-base";
 import { useMarkovModel } from "./useMarkovModel";
 import markov from "hx-markov-chain";
+import { SettingDrawer } from "./SettingDrawer";
 
 export default () => {
   const postTweet = useCallback((tweet: string) => {
@@ -52,41 +55,46 @@ export default () => {
   if (!isReady) {
     return (
       <View style={styles.container}>
-        <Text>Loading...</Text>
+        <Spinner />
       </View>
     );
   } else {
     return (
       <Container>
-        <Header>
-          <Body>
-            <Title>airtoxinbotbotnotbot</Title>
-          </Body>
-        </Header>
-        <Content
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={() => generateMessages(model)}
-            />
-          }
-        >
-          <List>
-            {messages.map(message => (
-              <ListItem
-                key={message}
-                onPress={() => postTweet(message)}
-                onLongPress={() =>
-                  Alert.alert("内容をコピーしました", "", [
-                    { text: "OK", onPress: () => Clipboard.setString(message) }
-                  ])
-                }
-              >
-                <Text style={styles.item}>{message}</Text>
-              </ListItem>
-            ))}
-          </List>
-        </Content>
+        <SettingDrawer>
+          <Header>
+            <Body>
+              <Title>airtoxinbotbotnotbot</Title>
+            </Body>
+          </Header>
+          <Content
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={() => generateMessages(model)}
+              />
+            }
+          >
+            <List>
+              {messages.map(message => (
+                <ListItem
+                  key={message}
+                  onPress={() => postTweet(message)}
+                  onLongPress={() =>
+                    Alert.alert("内容をコピーしました", "", [
+                      {
+                        text: "OK",
+                        onPress: () => Clipboard.setString(message)
+                      }
+                    ])
+                  }
+                >
+                  <Text style={styles.item}>{message}</Text>
+                </ListItem>
+              ))}
+            </List>
+          </Content>
+        </SettingDrawer>
       </Container>
     );
   }
