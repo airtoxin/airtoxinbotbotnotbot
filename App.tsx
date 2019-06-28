@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { AppLoading, Asset } from "expo";
 import {
   Button,
   FlatList,
@@ -10,7 +9,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import { Fab, Icon } from "native-base";
-// import markovModel from "./data/markov_model.json";
+import { useMarkovModel } from "./useMarkovModel";
 const markov = require("hx-markov-chain");
 
 export default () => {
@@ -18,22 +17,25 @@ export default () => {
     Linking.openURL(`twitter://post?message=${tweet}`).catch(console.log);
   }, []);
   const [messages, setMessages] = useState<string[]>([]);
-  const generateMessages = useCallback(() => {
-    const gen = [
-      // markov.run(markovModel).join(""),
-      // markov.run(markovModel).join(""),
-      // markov.run(markovModel).join(""),
-      // markov.run(markovModel).join(""),
-      // markov.run(markovModel).join(""),
-    ];
-    setMessages(gen);
+
+  const generateMessages = useCallback((model: any) => {
+    if (isReady) {
+      const gen = [
+        markov.run(model).join(""),
+        markov.run(model).join(""),
+        markov.run(model).join(""),
+        markov.run(model).join(""),
+        markov.run(model).join(""),
+      ];
+      setMessages(gen);
+    }
   }, [setMessages]);
 
-  useEffect(generateMessages, []);
+  const { isReady, model } = useMarkovModel();
 
   useEffect(() => {
-    console.log(Asset.fromModule(require("./data/markov_model.json")));
-  }, []);
+    generateMessages(model);
+  }, [isReady]);
 
   return (
     <View style={styles.container}>
@@ -48,7 +50,7 @@ export default () => {
       />
       <Fab
         position="bottomRight"
-        onPress={generateMessages}
+        onPress={() => generateMessages(model)}
       >
         <Icon name="refresh"/>
       </Fab>
