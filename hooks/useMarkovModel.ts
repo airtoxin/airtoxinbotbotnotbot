@@ -1,12 +1,14 @@
 import { useCallback, useRef } from "react";
 import * as FileSystem from "expo-file-system";
+import { useGlobalState } from "./useGlobalState";
+import markov from "hx-markov-chain";
 
 const MODEL_FILE_NAME = "markov_model.json";
 
-let globalModel = null;
-
 export const useMarkovModel = () => {
-  const prepareModel = useCallback(async (onReady: () => any) => {
+  const [model, setModel] = useGlobalState("model");
+
+  const prepareModel = useCallback(async () => {
     try {
       const { exists } = await FileSystem.getInfoAsync(
         FileSystem.cacheDirectory + MODEL_FILE_NAME
@@ -25,15 +27,25 @@ export const useMarkovModel = () => {
           modelString
         );
       }
-      globalModel = JSON.parse(modelString);
-      onReady();
+      setModel(JSON.parse(modelString));
     } catch (e) {
       console.error(e);
     }
   }, []);
 
+  const generate = useCallback(
+    (size: number) => {
+      if (model) {
+        return Array.from(Array(size)).map(() => markov.run(model).join(""));
+      } else {
+        return [];
+      }
+    },
+    [model]
+  );
+
   return {
     prepareModel,
-    model: globalModel
+    generate
   };
 };

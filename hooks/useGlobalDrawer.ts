@@ -1,9 +1,4 @@
-import { createGlobalState } from "react-hooks-global-state";
-const { GlobalStateProvider, useGlobalState } = createGlobalState({
-  drawer: null as any
-});
-
-export const GlobalDrawerStateProvider = GlobalStateProvider;
+import { useGlobalState } from "./useGlobalState";
 
 export const useGlobalDrawer = () => {
   const [drawer, setDrawer] = useGlobalState("drawer");

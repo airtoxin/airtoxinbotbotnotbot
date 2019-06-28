@@ -9,44 +9,32 @@ import {
 } from "react-native";
 import { Content, List, ListItem } from "native-base";
 import { useMarkovModel } from "../hooks/useMarkovModel";
-import markov from "hx-markov-chain";
 
 const postTweet = (tweet: string) => {
   Linking.openURL(`twitter://post?message=${tweet}`).catch(console.log);
 };
 
 export const Messages: React.FunctionComponent = () => {
-  const { model } = useMarkovModel();
+  const { generate } = useMarkovModel();
   const [messages, setMessages] = useState<string[]>([]);
   const [refreshing, setRefreshing] = useState(false);
 
-  const generateMessages = useCallback(
-    (m: any) => {
-      setRefreshing(true);
-      setTimeout(() => {
-        if (m) {
-          const gen = Array.from(Array(10)).map(() => markov.run(m).join(""));
-          setMessages(gen);
-          setRefreshing(false);
-        } else {
-          setRefreshing(false);
-        }
-      }, 10);
-    },
-    [setMessages]
-  );
+  const generateMessages = useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setMessages(generate(10));
+      setRefreshing(false);
+    }, 10);
+  }, [setMessages]);
 
   useEffect(() => {
-    generateMessages(model);
+    setMessages(generate(10));
   }, []);
 
   return (
     <Content
       refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={() => generateMessages(model)}
-        />
+        <RefreshControl refreshing={refreshing} onRefresh={generateMessages} />
       }
     >
       <List>

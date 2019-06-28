@@ -3,18 +3,25 @@ import { useMarkovModel } from "./hooks/useMarkovModel";
 import { Layout } from "./components/Layout";
 import { Loading } from "./components/Loading";
 import { Messages } from "./components/Messages";
-import { GlobalDrawerStateProvider } from "./hooks/useGlobalDrawer";
+import { GlobalStateProvider, useGlobalState } from "./hooks/useGlobalState";
 
 export default () => {
-  const [isReady, setIsReady] = useState(false);
+  return (
+    <GlobalStateProvider>
+      <Layout>
+        <Content />
+      </Layout>
+    </GlobalStateProvider>
+  );
+};
+
+const Content: React.FunctionComponent = () => {
+  const [model] = useGlobalState("model");
   const { prepareModel } = useMarkovModel();
+
   useEffect(() => {
-    void prepareModel(() => setIsReady(true));
+    void prepareModel();
   }, []);
 
-  return (
-    <GlobalDrawerStateProvider>
-      <Layout>{isReady ? <Messages /> : <Loading />}</Layout>
-    </GlobalDrawerStateProvider>
-  );
+  return model ? <Messages /> : <Loading />;
 };
