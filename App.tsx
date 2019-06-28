@@ -21,7 +21,7 @@ import {
 } from "native-base";
 import { useMarkovModel } from "./useMarkovModel";
 import markov from "hx-markov-chain";
-import { SettingDrawer } from "./SettingDrawer";
+import { SettingDrawer } from "./components/SettingDrawer";
 
 export default () => {
   const postTweet = useCallback((tweet: string) => {
