@@ -15,7 +15,7 @@ const postTweet = (tweet: string) => {
   Linking.openURL(`twitter://post?message=${tweet}`).catch(console.log);
 };
 
-export const Messages = () => {
+export const Messages: React.FunctionComponent = () => {
   const { model } = useMarkovModel();
   const [messages, setMessages] = useState<string[]>([]);
   const [refreshing, setRefreshing] = useState(false);

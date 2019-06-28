@@ -2,7 +2,7 @@ import React from "react";
 import { Spinner } from "native-base";
 import { StyleSheet, View } from "react-native";
 
-export const Loading = () => (
+export const Loading: React.FunctionComponent = () => (
   <View style={styles.container}>
     <Spinner color="black" />
   </View>

@@ -12,7 +12,7 @@ import {
 import { SettingDrawer } from "./SettingDrawer";
 import { useGlobalDrawer } from "../hooks/useGlobalDrawer";
 
-export const Layout = ({ children }) => {
+export const Layout: React.FunctionComponent = ({ children }) => {
   const { open } = useGlobalDrawer();
   return (
     <Container>

@@ -1,21 +1,17 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import {
+  Body,
+  Button,
   Container,
   Content,
+  Drawer,
   Header,
-  Left,
   ListItem,
-  Right,
-  Body,
-  Switch,
-  Text,
-  Button,
-  Icon,
-  Drawer
+  Text
 } from "native-base";
 import { useGlobalDrawer } from "../hooks/useGlobalDrawer";
 
-export const SettingDrawer = ({ children }) => {
+export const SettingDrawer: React.FunctionComponent = ({ children }) => {
   const { setDrawer, close } = useGlobalDrawer();
 
   return (
