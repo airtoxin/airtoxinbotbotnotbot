@@ -1,15 +1,15 @@
 import React, { useCallback, useEffect, useState } from "react";
 import {
-  Button,
   FlatList,
+  Linking,
   StyleSheet,
   Text,
-  View,
-  Linking,
-  TouchableOpacity
+  TouchableOpacity,
+  View
 } from "react-native";
 import { Fab, Icon } from "native-base";
 import { useMarkovModel } from "./useMarkovModel";
+
 const markov = require("hx-markov-chain");
 
 export default () => {
@@ -18,44 +18,46 @@ export default () => {
   }, []);
   const [messages, setMessages] = useState<string[]>([]);
 
-  const generateMessages = useCallback((model: any) => {
-    if (isReady) {
-      const gen = [
-        markov.run(model).join(""),
-        markov.run(model).join(""),
-        markov.run(model).join(""),
-        markov.run(model).join(""),
-        markov.run(model).join(""),
-      ];
-      setMessages(gen);
-    }
-  }, [setMessages]);
-
   const { isReady, model } = useMarkovModel();
+
+  const generateMessages = useCallback(
+    (model: any) => {
+      if (isReady && model) {
+        const gen = Array.from(Array(10)).map(() => markov.run(model).join(""));
+        setMessages(gen);
+      }
+    },
+    [setMessages, isReady]
+  );
 
   useEffect(() => {
     generateMessages(model);
   }, [isReady]);
 
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={messages}
-        renderItem={message => (
-          <TouchableOpacity onPress={() => postTweet(message.item)}>
-            <Text style={styles.item}>{message.item}</Text>
-          </TouchableOpacity>
-        )}
-        keyExtractor={item => item}
-      />
-      <Fab
-        position="bottomRight"
-        onPress={() => generateMessages(model)}
-      >
-        <Icon name="refresh"/>
-      </Fab>
-    </View>
-  );
+  if (!isReady) {
+    return (
+      <View style={styles.container}>
+        <Text>Loading...</Text>
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+        <FlatList
+          data={messages}
+          renderItem={message => (
+            <TouchableOpacity onPress={() => postTweet(message.item)}>
+              <Text style={styles.item}>{message.item}</Text>
+            </TouchableOpacity>
+          )}
+          keyExtractor={item => item}
+        />
+        <Fab position="bottomRight" onPress={() => generateMessages(model)}>
+          <Icon name="refresh" />
+        </Fab>
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
