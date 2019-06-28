@@ -3,6 +3,7 @@ import { useMarkovModel } from "./hooks/useMarkovModel";
 import { Layout } from "./components/Layout";
 import { Loading } from "./components/Loading";
 import { Messages } from "./components/Messages";
+import { GlobalDrawerStateProvider } from "./hooks/useGlobalDrawer";
 
 export default () => {
   const [isReady, setIsReady] = useState(false);
@@ -11,5 +12,9 @@ export default () => {
     void prepareModel(() => setIsReady(true));
   }, []);
 
-  return <Layout>{isReady ? <Messages /> : <Loading />}</Layout>;
+  return (
+    <GlobalDrawerStateProvider>
+      <Layout>{isReady ? <Messages /> : <Loading />}</Layout>
+    </GlobalDrawerStateProvider>
+  );
 };

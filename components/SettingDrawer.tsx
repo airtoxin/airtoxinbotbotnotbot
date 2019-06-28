@@ -13,19 +13,16 @@ import {
   Icon,
   Drawer
 } from "native-base";
+import {useGlobalDrawer} from "../hooks/useGlobalDrawer";
 
 export const SettingDrawer = ({ children }) => {
-  const drawer = useRef(null);
-  useEffect(() => {
-    setInterval(() => {
-      drawer.current._root.open();
-    }, 2 * 1000);
-  }, []);
+  const { setDrawer, close } = useGlobalDrawer();
+
   return (
     <Drawer
-      ref={drawer}
+      ref={setDrawer}
       content={<DrawerContent />}
-      onClose={() => drawer.current._root.close()}
+      onClose={close}
     >
       {children}
     </Drawer>
@@ -38,14 +35,7 @@ const DrawerContent = () => {
       <Header />
       <Content>
         <ListItem icon button>
-          <Left>
-            <Button>
-              <Icon name="cloud-download" />
-            </Button>
-          </Left>
-          <Body>
-            <Text>モデルを再取得</Text>
-          </Body>
+          <Body><Button transparent><Text>モデルを再取得</Text></Button></Body>
         </ListItem>
       </Content>
     </Container>
