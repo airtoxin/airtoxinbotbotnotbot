@@ -1,13 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
+import { Linking, StyleSheet, Text, View } from "react-native";
 import {
-  FlatList,
-  Linking,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from "react-native";
-import { Fab, Icon } from "native-base";
+  Body,
+  Container,
+  Content,
+  Fab,
+  Header,
+  Icon,
+  List,
+  ListItem,
+  Title
+} from "native-base";
 import { useMarkovModel } from "./useMarkovModel";
 import markov from "hx-markov-chain";
 
@@ -41,20 +44,25 @@ export default () => {
     );
   } else {
     return (
-      <View style={styles.container}>
-        <FlatList
-          data={messages}
-          renderItem={message => (
-            <TouchableOpacity onPress={() => postTweet(message.item)}>
-              <Text style={styles.item}>{message.item}</Text>
-            </TouchableOpacity>
-          )}
-          keyExtractor={item => item}
-        />
+      <Container>
+        <Header>
+          <Body>
+            <Title>airtoxinbotbotnotbot</Title>
+          </Body>
+        </Header>
+        <Content>
+          <List>
+            {messages.map(message => (
+              <ListItem key={message} onPress={() => postTweet(message)}>
+                <Text style={styles.item}>{message}</Text>
+              </ListItem>
+            ))}
+          </List>
+        </Content>
         <Fab position="bottomRight" onPress={() => generateMessages(model)}>
           <Icon name="refresh" />
         </Fab>
-      </View>
+      </Container>
     );
   }
 };
@@ -68,7 +76,6 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   item: {
-    fontSize: 24,
-    margin: 8
+    fontSize: 16
   }
 });
