@@ -3,6 +3,7 @@ import {
   Alert,
   Clipboard,
   Linking,
+  RefreshControl,
   StyleSheet,
   Text,
   View
@@ -11,9 +12,7 @@ import {
   Body,
   Container,
   Content,
-  Fab,
   Header,
-  Icon,
   List,
   ListItem,
   Title
@@ -28,13 +27,20 @@ export default () => {
   const [messages, setMessages] = useState<string[]>([]);
 
   const { isReady, model } = useMarkovModel();
+  const [refreshing, setRefreshing] = useState(false);
 
   const generateMessages = useCallback(
     (model: any) => {
-      if (isReady && model) {
-        const gen = Array.from(Array(10)).map(() => markov.run(model).join(""));
-        setMessages(gen);
-      }
+      setRefreshing(true);
+      setTimeout(() => {
+        if (isReady && model) {
+          const gen = Array.from(Array(10)).map(() =>
+            markov.run(model).join("")
+          );
+          setMessages(gen);
+          setRefreshing(false);
+        }
+      }, 10);
     },
     [setMessages, isReady]
   );
@@ -57,7 +63,14 @@ export default () => {
             <Title>airtoxinbotbotnotbot</Title>
           </Body>
         </Header>
-        <Content>
+        <Content
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={() => generateMessages(model)}
+            />
+          }
+        >
           <List>
             {messages.map(message => (
               <ListItem
@@ -74,9 +87,6 @@ export default () => {
             ))}
           </List>
         </Content>
-        <Fab position="bottomRight" onPress={() => generateMessages(model)}>
-          <Icon name="refresh" />
-        </Fab>
       </Container>
     );
   }
