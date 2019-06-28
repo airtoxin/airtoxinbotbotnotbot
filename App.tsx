@@ -9,8 +9,7 @@ import {
 } from "react-native";
 import { Fab, Icon } from "native-base";
 import { useMarkovModel } from "./useMarkovModel";
-
-const markov = require("hx-markov-chain");
+import markov from "hx-markov-chain";
 
 export default () => {
   const postTweet = useCallback((tweet: string) => {
