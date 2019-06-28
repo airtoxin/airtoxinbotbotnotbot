@@ -13,17 +13,13 @@ import {
   Icon,
   Drawer
 } from "native-base";
-import {useGlobalDrawer} from "../hooks/useGlobalDrawer";
+import { useGlobalDrawer } from "../hooks/useGlobalDrawer";
 
 export const SettingDrawer = ({ children }) => {
   const { setDrawer, close } = useGlobalDrawer();
 
   return (
-    <Drawer
-      ref={setDrawer}
-      content={<DrawerContent />}
-      onClose={close}
-    >
+    <Drawer ref={setDrawer} content={<DrawerContent />} onClose={close}>
       {children}
     </Drawer>
   );
@@ -35,7 +31,11 @@ const DrawerContent = () => {
       <Header />
       <Content>
         <ListItem icon button>
-          <Body><Button transparent><Text>モデルを再取得</Text></Button></Body>
+          <Body>
+            <Button transparent>
+              <Text>モデルを再取得</Text>
+            </Button>
+          </Body>
         </ListItem>
       </Content>
     </Container>

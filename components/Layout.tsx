@@ -6,10 +6,11 @@ import {
   Header,
   Icon,
   Left,
+  Right,
   Title
 } from "native-base";
 import { SettingDrawer } from "./SettingDrawer";
-import {useGlobalDrawer} from "../hooks/useGlobalDrawer";
+import { useGlobalDrawer } from "../hooks/useGlobalDrawer";
 
 export const Layout = ({ children }) => {
   const { open } = useGlobalDrawer();
@@ -23,8 +24,9 @@ export const Layout = ({ children }) => {
             </Button>
           </Left>
           <Body>
-            <Title>airtoxinbotbotnotbot</Title>
+            <Title>botbotnotbot</Title>
           </Body>
+          <Right />
         </Header>
         {children}
       </SettingDrawer>

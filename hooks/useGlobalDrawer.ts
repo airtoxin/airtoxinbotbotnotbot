@@ -1,6 +1,6 @@
 import { createGlobalState } from "react-hooks-global-state";
 const { GlobalStateProvider, useGlobalState } = createGlobalState({
-  drawer: null as any,
+  drawer: null as any
 });
 
 export const GlobalDrawerStateProvider = GlobalStateProvider;
@@ -23,5 +23,5 @@ export const useGlobalDrawer = () => {
     open,
     close,
     setDrawer
-  }
+  };
 };
