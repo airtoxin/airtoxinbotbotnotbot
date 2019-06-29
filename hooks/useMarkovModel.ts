@@ -4,6 +4,10 @@ import { useGlobalState } from "./useGlobalState";
 import markov from "hx-markov-chain";
 
 const MODEL_FILE_NAME = "markov_model.json";
+const MODEL_DATA_URL =
+  "https://www.dropbox.com/s/u82dh1co2ahnw53/markov_model.json?dl=1";
+// const MODEL_DATA_URL =
+//   "https://www.dropbox.com/s/ejvjdtp0x8nxyqi/markov_model_light.json?dl=1";
 
 export const useMarkovModel = () => {
   const [model, setModel] = useGlobalState("model");
@@ -12,9 +16,9 @@ export const useMarkovModel = () => {
     try {
       setModel(null);
       const filePath = (await FileSystem.downloadAsync(
-          "https://www.dropbox.com/s/8fgm73s8xrxlmdt/markov_model.json?dl=1",
-          FileSystem.documentDirectory + MODEL_FILE_NAME
-        )).uri;
+        MODEL_DATA_URL,
+        FileSystem.documentDirectory + MODEL_FILE_NAME
+      )).uri;
 
       const modelString = await FileSystem.readAsStringAsync(filePath);
       await FileSystem.writeAsStringAsync(
@@ -24,6 +28,7 @@ export const useMarkovModel = () => {
       setModel(JSON.parse(modelString));
     } catch (e) {
       console.error(e);
+      void FileSystem.deleteAsync(FileSystem.cacheDirectory + MODEL_FILE_NAME);
     }
   }, []);
 
@@ -35,7 +40,7 @@ export const useMarkovModel = () => {
       const filePath = exists
         ? FileSystem.cacheDirectory + MODEL_FILE_NAME
         : (await FileSystem.downloadAsync(
-            "https://www.dropbox.com/s/8fgm73s8xrxlmdt/markov_model.json?dl=1",
+            MODEL_DATA_URL,
             FileSystem.documentDirectory + MODEL_FILE_NAME
           )).uri;
 
@@ -49,6 +54,7 @@ export const useMarkovModel = () => {
       setModel(JSON.parse(modelString));
     } catch (e) {
       console.error(e);
+      void FileSystem.deleteAsync(FileSystem.cacheDirectory + MODEL_FILE_NAME);
     }
   }, []);
 
