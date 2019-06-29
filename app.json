@@ -2,7 +2,7 @@
   "expo": {
     "name": "botbotnotbot",
     "slug": "airtoxinbotbotnotbot",
-    "privacy": "public",
+    "privacy": "unlisted",
     "sdkVersion": "33.0.0",
     "platforms": ["ios"],
     "version": "1.0.0",
