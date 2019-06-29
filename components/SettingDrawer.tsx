@@ -10,6 +10,7 @@ import {
   Text
 } from "native-base";
 import { useGlobalDrawer } from "../hooks/useGlobalDrawer";
+import { useMarkovModel } from "../hooks/useMarkovModel";
 
 export const SettingDrawer: React.FunctionComponent = ({ children }) => {
   const { setDrawer, close } = useGlobalDrawer();
@@ -22,13 +23,15 @@ export const SettingDrawer: React.FunctionComponent = ({ children }) => {
 };
 
 const DrawerContent = () => {
+  const { fetchAndCacheModelData } = useMarkovModel();
+
   return (
     <Container>
       <Header />
       <Content>
         <ListItem icon button>
           <Body>
-            <Button transparent>
+            <Button full transparent danger onPress={fetchAndCacheModelData}>
               <Text>モデルを再取得</Text>
             </Button>
           </Body>

@@ -17,10 +17,10 @@ export default () => {
 
 const Content: React.FunctionComponent = () => {
   const [model] = useGlobalState("model");
-  const { prepareModel } = useMarkovModel();
+  const { prepareModelData } = useMarkovModel();
 
   useEffect(() => {
-    void prepareModel();
+    void prepareModelData();
   }, []);
 
   return model ? <Messages /> : <Loading />;
