@@ -20,7 +20,7 @@
     "@types/react-native": "0.57.64",
     "babel-preset-expo": "^5.1.1",
     "dotenv": "8.0.0",
-    "expo-cli": "2.21.1",
+    "expo-cli": "2.21.2",
     "hx-markov-chain": "1.2.0",
     "markovian-nlp": "4.1.6",
     "prettier": "1.18.2",
