@@ -3,6 +3,7 @@ const fs = require("fs");
 const TinySegmenter = require("tiny-segmenter");
 const { ngramsDistribution } = require("markovian-nlp");
 const markov = require("hx-markov-chain");
+require("dotenv").config();
 
 const segmenter = new TinySegmenter();
 
@@ -42,7 +43,7 @@ for (const segments of segmentsList) {
 }
 
 fs.writeFileSync(
-  path.join(process.cwd(), "data/markov_model.json"),
+  path.join(process.cwd(), `data/${process.env.MODEL_FILE_NAME}`),
   JSON.stringify(model),
   "utf8"
 );
