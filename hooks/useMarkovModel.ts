@@ -2,12 +2,7 @@ import { useCallback, useRef } from "react";
 import * as FileSystem from "expo-file-system";
 import { useGlobalState } from "./useGlobalState";
 import markov from "hx-markov-chain";
-
-const MODEL_FILE_NAME = "markov_model.json";
-const MODEL_DATA_URL =
-  "https://www.dropbox.com/s/u82dh1co2ahnw53/markov_model.json?dl=1";
-// const MODEL_DATA_URL =
-//   "https://www.dropbox.com/s/ejvjdtp0x8nxyqi/markov_model_light.json?dl=1";
+import { MODEL_FILE_NAME, MODEL_FILE_URL } from "react-native-dotenv";
 
 export const useMarkovModel = () => {
   const [model, setModel] = useGlobalState("model");
@@ -16,7 +11,7 @@ export const useMarkovModel = () => {
     try {
       setModel(null);
       const filePath = (await FileSystem.downloadAsync(
-        MODEL_DATA_URL,
+        MODEL_FILE_URL,
         FileSystem.documentDirectory + MODEL_FILE_NAME
       )).uri;
 
@@ -40,7 +35,7 @@ export const useMarkovModel = () => {
       const filePath = exists
         ? FileSystem.cacheDirectory + MODEL_FILE_NAME
         : (await FileSystem.downloadAsync(
-            MODEL_DATA_URL,
+            MODEL_FILE_URL,
             FileSystem.documentDirectory + MODEL_FILE_NAME
           )).uri;
 
