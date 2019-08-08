@@ -23,8 +23,8 @@ Twitter の設定ページから全ツイート履歴を取得
 ![tweets](doc/tweets.png)  
 `data` ディレクトリに作成されたモデルファイルをインターネットにアップロード (S3 や Dropbox など)
 
-`$ cp .env{,.local}` コマンドで env ファイルを作成。  
-`.env.local` ファイルを編集して先程アップロードしたファイルの URL を `MODEL_FILE_URL` に指定
+`$ cp .env{.sample,}` コマンドで env ファイルを作成。  
+`.env` ファイルを編集して先程アップロードしたファイルの URL を `MODEL_FILE_URL` に指定
 
 ## 起動 (シミュレーター)
 
