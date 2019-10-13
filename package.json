@@ -6,27 +6,27 @@
     "extract-tweet-text": "node scripts/extract-tweet-text.js"
   },
   "dependencies": {
-    "expo": "^33.0.0",
-    "expo-file-system": "~5.0.1",
-    "native-base": "2.12.1",
-    "react": "16.8.3",
-    "react-dom": "^16.8.6",
-    "react-hooks-global-state": "0.14.0",
+    "expo": "^35.0.0",
+    "expo-file-system": "~7.0.0",
+    "native-base": "2.13.8",
+    "react": "16.10.2",
+    "react-dom": "^16.10.2",
+    "react-hooks-global-state": "0.15.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
-    "react-native-web": "^0.11.4"
+    "react-native-web": "^0.11.7"
   },
   "devDependencies": {
-    "@types/react": "16.8.22",
-    "@types/react-native": "0.57.64",
-    "babel-preset-expo": "^5.1.1",
-    "dotenv": "8.0.0",
-    "expo-cli": "2.21.2",
+    "@types/react": "16.9.5",
+    "@types/react-native": "0.60.19",
+    "babel-preset-expo": "^7.0.0",
+    "dotenv": "8.1.0",
+    "expo-cli": "3.3.0",
     "hx-markov-chain": "1.2.0",
-    "markovian-nlp": "4.1.6",
+    "markovian-nlp": "5.0.1",
     "prettier": "1.18.2",
     "react-native-dotenv": "0.2.0",
     "tiny-segmenter": "0.2.0",
-    "typescript": "3.5.2"
+    "typescript": "3.6.4"
   },
   "private": true
 }
