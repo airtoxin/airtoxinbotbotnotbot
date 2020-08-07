@@ -6,8 +6,8 @@
     "extract-tweet-text": "node scripts/extract-tweet-text.js"
   },
   "dependencies": {
-    "expo": "^35.0.0",
-    "expo-file-system": "~7.0.0",
+    "expo": "^38.0.9",
+    "expo-file-system": "~9.1.0",
     "native-base": "2.13.8",
     "react": "16.10.2",
     "react-dom": "^16.10.2",
